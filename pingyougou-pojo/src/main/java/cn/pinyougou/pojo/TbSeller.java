@@ -42,7 +42,7 @@ public class TbSeller implements Serializable{
 
     private String brief;
 
-    private Date createTime;
+    private Date createTime=new Date();
 
     private String legalPerson;
 
@@ -51,8 +51,19 @@ public class TbSeller implements Serializable{
     private String bankUser;
 
     private String bankName;
+    
+    private String brankUserName;
+    
+    
+    public String getBrankUserName() {
+		return brankUserName;
+	}
 
-    public String getSellerId() {
+	public void setBrankUserName(String brankUserName) {
+		this.brankUserName = brankUserName;
+	}
+
+	public String getSellerId() {
         return sellerId;
     }
 

@@ -5,7 +5,6 @@ app.controller('typeTemplate',function($scope,$controller,typeTemplateService){
 		$scope.list={};
 		$scope.fanAll=function(pageTole,pageSize){
 			typeTemplateService.fanAll(pageTole,pageSize,$scope.queryTypeTemplate).success(function(response){
-                alert(JSON.stringify(response.list));
                 $scope.list=response.list;
 				$scope.paginationConf.totalItems=response.pageTole;
 			})
@@ -20,6 +19,7 @@ app.controller('typeTemplate',function($scope,$controller,typeTemplateService){
 			$scope.SpecificationList={data:[]};
 			typeTemplateService.NewAndAlter().success(function(resoponse){
 				  $scope.BranList={data:resoponse.bran};
+				  alert($scope.BranList);
                   $scope.SpecificationList={data:resoponse.specification};
                   	$scope.reloadList();	
 			})

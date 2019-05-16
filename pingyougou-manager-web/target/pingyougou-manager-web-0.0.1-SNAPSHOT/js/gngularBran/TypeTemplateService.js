@@ -1,9 +1,6 @@
  app.service('typeTemplateService',function($http){
         //查询所有功能
               this.fanAll=function(pageSize,pageTole,queryTypeTemplate){
-                   
-                    alert(pageTole);
-                    alert(pageSize);
                   return $http.post('../typeTemplate/selectList.do?pageTole='+pageTole+'&pageSize='+pageSize,queryTypeTemplate);
               }  
             //新建功能

@@ -1,5 +1,5 @@
  app.service('specificationService',function($http){
-    //��ѯ����
+  
     	this.fanAll=function(pageTole,pageSize,spnate){
     		return $http.post('../specification/selectList.do?pageTole='+pageTole+'&pageSize='+pageSize,spnate);
     	}
