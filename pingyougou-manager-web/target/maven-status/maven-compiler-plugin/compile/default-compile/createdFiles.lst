@@ -1,3 +1,8 @@
+cn\pingyougou\manager\controller\itemCatController.class
+cn\pingyougou\manager\controller\goodsController.class
+cn\pingyougou\manager\controller\ControllerCategoryController.class
+cn\pingyougou\manager\controller\ContentController.class
 cn\pingyougou\manager\controller\typeTemplateController.class
+cn\pingyougou\manager\controller\sellerOneController.class
 cn\pingyougou\manager\controller\specificationController.class
 cn\pingyougou\manager\controller\branController.class

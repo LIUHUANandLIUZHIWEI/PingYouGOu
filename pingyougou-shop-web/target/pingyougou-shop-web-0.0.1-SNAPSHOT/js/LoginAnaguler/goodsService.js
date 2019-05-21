@@ -1,4 +1,4 @@
-lapp.service('goodsService',function($http){
+app.service('goodsService',function($http){
     //查询所有数据
     this.fanAll=function(pageTole,pageSize,goodsEienAll){
             return $http.post('../goodsEditAndDesc/selectAllList.do?pageTole='+pageTole+'&pageSize='+pageSize,goodsEienAll); 
@@ -8,8 +8,8 @@ lapp.service('goodsService',function($http){
         return $http.get('../goodsEditAndDesc/deleteGoodsAll.do?longs='+longs);
     }
     //查询所有分类
-    this.selectSpecificationOption=function(){
-        return $http.get('../goodsEditAndDesc/selectSpecificationOption.do');
+    this.selectItemCat=function(){
+        return $http.get('../goodsEditAndDesc/selectItemCat.do');
     }
 
 });

@@ -248,7 +248,7 @@
 	            <groupId>xml-apis</groupId>  
 	            <artifactId>xml-apis</artifactId>  
 	            <version>1.4.01</version>  
-	        </dependency> 		
+	        </dependency>
 		</dependencies>	
 	
 	</dependencyManagement>
@@ -281,5 +281,12 @@
 		<module>pingyougou-sellergoods-service</module>
 		<module>pingyougou-manager-web</module>
 		<module>pingyougou-shop-web</module>
+		<module>pingyougou.content.interface</module>
+		<module>pingyougou.content.service</module>
+		<module>pingyougou-portal-web</module>
+		<module>pingyougou-solrUtile</module>
+		<module>pingyougou.solr-interfase</module>
+		<module>pingyougou.solr.service</module>
+		<module>pingyougou-solr-web</module>
 	</modules>
 </project>

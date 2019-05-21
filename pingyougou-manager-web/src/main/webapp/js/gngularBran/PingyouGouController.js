@@ -8,12 +8,9 @@ app.controller('pingyougouController',function($scope){
 									     $scope.reloadList();
 									 }
 									 };
-
-								
-    								$scope.reloadList=function(){
+    							$scope.reloadList=function(){
 									$scope.fanAll($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
-								};
-
+                                };
                                 
                             $scope.checkBox=[];
                                 

@@ -1,1 +1,6 @@
+cn\pingyougou\sellergoodsServiceInterface\SpecificationService.class
 cn\pingyougou\sellergoodsServiceInterface\BranService.class
+cn\pingyougou\sellergoodsServiceInterface\typeTemplateService.class
+cn\pingyougou\sellergoodsServiceInterface\SellerService.class
+cn\pingyougou\sellergoodsServiceInterface\itemCatService.class
+cn\pingyougou\sellergoodsServiceInterface\GoodsService.class

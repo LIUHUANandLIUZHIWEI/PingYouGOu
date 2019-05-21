@@ -12,7 +12,7 @@ import entryPingYouGou.PageToel;
 
 public interface GoodsService {
 
-	void insertShop(GoodsShopInsert goodsShopInsert);
+	void insertShop(GoodsShopInsert goodsShopInsert) throws Exception;
 
 	List<TbItemCat> selectItemcat(long id);
 
@@ -24,6 +24,14 @@ public interface GoodsService {
 
 	void delgoodsList(Long[] longs);
 
-	List<TbSpecificationOption> selectSpecificationOption();
+	List<TbItemCat> selectItemCat();
+
+	String SellerId(Long id);
+
+	GoodsShopInsert updateSelectList(Long id);
+
+	void updateGoodsShop(GoodsShopInsert goodsShopInsert) throws Exception;
+
+	void updateStatusList(Long[] longs, long status);
 
 }

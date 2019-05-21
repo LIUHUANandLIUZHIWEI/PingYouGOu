@@ -1,18 +1,17 @@
 package cn.pingyougou.sellergoods.service.Imp;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.alibaba.fastjson.JSON;
 
 import cn.pingyougou.sellergoodsServiceInterface.GoodsService;
 import cn.pinyougou.mapper.TbBrandMapper;
@@ -24,10 +23,13 @@ import cn.pinyougou.mapper.TbSellerMapper;
 import cn.pinyougou.mapper.TbSpecificationOptionMapper;
 import cn.pinyougou.mapper.TbTypeTemplateMapper;
 import cn.pinyougou.pojo.TbGoods;
+import cn.pinyougou.pojo.TbGoodsDesc;
 import cn.pinyougou.pojo.TbGoodsExample;
+import cn.pinyougou.pojo.TbGoodsExample.Criteria;
 import cn.pinyougou.pojo.TbItem;
 import cn.pinyougou.pojo.TbItemCat;
 import cn.pinyougou.pojo.TbItemCatExample;
+import cn.pinyougou.pojo.TbItemExample;
 import cn.pinyougou.pojo.TbSpecificationOption;
 import cn.pinyougou.pojo.TbSpecificationOptionExample;
 import cn.pinyougou.pojo.TbTypeTemplate;
@@ -35,6 +37,7 @@ import entryPingYouGou.GoodsShopInsert;
 import entryPingYouGou.PageToel;
 
 @Service
+@Transactional
 public class GoodsServiceImp implements GoodsService{
 	@Autowired
 	private TbGoodsDescMapper tbGoodsDescMapper;
@@ -52,8 +55,24 @@ public class GoodsServiceImp implements GoodsService{
 	private TbBrandMapper TbBrandMapper;
 	@Autowired
 	private TbSellerMapper tbSellerMapper;
+	//修改
+	@Override
+	public void updateGoodsShop(GoodsShopInsert goodsShopInsert) throws Exception {
+	TbGoodsMapper.updateByPrimaryKey(goodsShopInsert.getGoodsEdit());
+	tbGoodsDescMapper.updateByPrimaryKey(goodsShopInsert.getGoodsDesc());
+	for(TbItem item:goodsShopInsert.getItems()) {
+		if(item.getId()!=null) {
+			tbItemMapper.deleteByPrimaryKey(item.getId());
+		}else {
+			throw new Exception("删除错误");
+		}
+		
+	}
+		this.items(goodsShopInsert);
+	}
+	//添加
 	@Override	
-	public void insertShop(GoodsShopInsert goodsShopInsert) {
+	public void insertShop(GoodsShopInsert goodsShopInsert) throws Exception {
 		goodsShopInsert.getGoodsEdit().setAuditStatus("0");
 		goodsShopInsert.getGoodsEdit().setIsMarketable("1");
 		
@@ -62,8 +81,12 @@ public class GoodsServiceImp implements GoodsService{
 		goodsShopInsert.getGoodsDesc().setGoodsId(goodsShopInsert.getGoodsEdit().getId());
 		tbGoodsDescMapper.insertSelective(goodsShopInsert.getGoodsDesc());
 		
+		this.items(goodsShopInsert);
+	
+	}
+	
+	private void items(GoodsShopInsert goodsShopInsert) {
 		boolean boo="1".equals(goodsShopInsert.getGoodsEdit().getIsEnableSpec());
-		System.out.println(boo);
 		if(boo) {
 			for(TbItem itemcat:goodsShopInsert.getItems()) {
 				String brans="";//品牌
@@ -75,7 +98,7 @@ public class GoodsServiceImp implements GoodsService{
 				if(boo) {
 					Map<String, Object> list=JSON.parseObject(itemcat.getSpec());
 					for(Entry<String, Object> map:list.entrySet()) {
-							title+=map.getValue()+"";
+							title+=map.getValue()+" ";
 					}
 				}
 				
@@ -83,6 +106,7 @@ public class GoodsServiceImp implements GoodsService{
 				String image="";//第一张图片
 				if(goodsShopInsert.getGoodsDesc().getItemImages()!=null) {
 					List<Map> listImage=JSON.parseArray(goodsShopInsert.getGoodsDesc().getItemImages(),Map.class);
+					System.out.println(listImage.get(0).get("url")+"");
 					image=listImage.get(0).get("url")+"";
 				}
 				itemcat.setImage(image);
@@ -107,8 +131,9 @@ public class GoodsServiceImp implements GoodsService{
 				}
 			
 		}
-	
 	}
+
+	
 	
 	@Override
 	public List<TbItemCat> selectItemcat(long id) {
@@ -139,19 +164,23 @@ public class GoodsServiceImp implements GoodsService{
 		}
 		return list;
 	}
-
 	
 	@Override
 	public PageToel<TbGoods> selectGoodsList(int pageTole, int pageSize, TbGoods goods) {
 		PageHelper.startPage(pageTole, pageSize);
 		TbGoodsExample example=null;
+		example=new TbGoodsExample();
+		 Criteria crit=example.createCriteria();
+		 crit.andIsDeleteIsNull();
 		if(goods!=null) {
-			 example=new TbGoodsExample();
 			 if(goods.getGoodsName()!=null&&goods.getGoodsName().length()>0) {
-				 example.createCriteria().andGoodsNameLike("%"+goods.getGoodsName()+"%");
+				 crit.andGoodsNameLike("%"+goods.getGoodsName()+"%");
 			 }
 			 if(goods.getAuditStatus()!=null&&goods.getAuditStatus().length()>0) {
-				 example.createCriteria().andAuditStatusEqualTo(goods.getAuditStatus());
+				 crit.andAuditStatusEqualTo(goods.getAuditStatus());
+			 }
+			 if(goods.getSellerId()!=null&&goods.getSellerId().length()>0) {
+				 crit.andSellerIdEqualTo(goods.getSellerId());
 			 }
 		}
 		Page<TbGoods> page=(Page<TbGoods>) TbGoodsMapper.selectByExample(example);
@@ -169,9 +198,34 @@ public class GoodsServiceImp implements GoodsService{
 	}
 
 	@Override
-	public List<TbSpecificationOption> selectSpecificationOption() {
-		// TODO Auto-generated method stub
-		return tbSpecificationOptionMapper.selectByExample(null);
+	public List<TbItemCat> selectItemCat() {
+		return tbItemCatMapper.selectByExample(null);
+	}
+	//根据id查询用户名
+	@Override
+	public String SellerId(Long id) {
+		TbGoods tb=TbGoodsMapper.selectByPrimaryKey(id);
+		return tb.getSellerId();
+	}
+
+	@Override
+	public GoodsShopInsert updateSelectList(Long id) {
+		TbGoods tb=TbGoodsMapper.selectByPrimaryKey(id);
+		TbGoodsDesc desc=tbGoodsDescMapper.selectByPrimaryKey(id);
+		TbItemExample example=new TbItemExample();
+		example.createCriteria().andGoodsIdEqualTo(id);
+		List<TbItem> items=tbItemMapper.selectByExample(example);
+		return new GoodsShopInsert(tb,desc, items);
+	}
+	
+	@Override
+	public void updateStatusList(Long[] longs, long status) {
+		for(Long lo:longs) {
+			TbGoods goo=TbGoodsMapper.selectByPrimaryKey(lo);
+			goo.setAuditStatus(status+"");
+			TbGoodsMapper.updateByPrimaryKeySelective(goo);
+		}
+		
 	}
 
 }

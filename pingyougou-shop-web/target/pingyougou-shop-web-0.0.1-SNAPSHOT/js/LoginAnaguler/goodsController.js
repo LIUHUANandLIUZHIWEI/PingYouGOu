@@ -1,7 +1,7 @@
 app.controller('goodsController',function($scope,goodsService){
-    //分页插件
-		$scope.paginationConf = {
-									 currentPage: 1,
+    //��ҳ���
+		                        $scope.paginationConf = {
+                                     currentPage: 1,
 									 totalItems: 10,
 									 itemsPerPage: 10,
 									  perPageOptions: [10, 20, 30, 40, 50],
@@ -9,34 +9,33 @@ app.controller('goodsController',function($scope,goodsService){
 									     $scope.reloadList();
 									 }
 									 };
-
-								
     								$scope.reloadList=function(){
-									$scope.fanAll($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
-                                };    
-                                
-        //查询所有
+									        $scope.fanAll($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+                                         };    
+                                $scope.goodsAll={};
+        //��ѯ����
         $scope.fanAll=function(pageTole,pageSize){
             goodsService.fanAll(pageTole,pageSize,$scope.goodsAll).success(function(response){
-                        $scope.goodsList=response.list;
-                        $scope.totalItems=response.pageTole;
+                $scope.goodsList=response.list;
+                $scope.paginationConf.totalItems=response.pageTole;
                         
             })
         }
         $scope.status=['未审核','已审核','审核未通过','关闭'];
-        $scope.specificationOption=[];
-        //缓存分类 
-            $scope.selectSpecificationOption=function(){
-                goodsService.selectSpecificationOption().success(function(){
+        $scope.sItemCat={};
+        //�������
+            $scope.selectItemCat=function(){
+                goodsService.selectItemCat().success(function(response){
                           for(var i=0;i<response.length;i++){
-                            $scope.selectSpecificationOption[responseid]=response.optionName();
+                            $scope.sItemCat[response[i].id]=response[i].name;
                        }
                 })
             }
-            //修改页面跳转
+
+            //�޸�ҳ����ת
             $scope.localhost=function(goodsid){
                 if(goodsid!=null){
-                     window.location.href='goods_edit.html#?goodis='+goodsid;
+                     window.location.href='goods_edit.html#?goodsid='+goodsid;
                 }else{
                       window.location.href='goods_edit.html';
                 }
@@ -50,10 +49,15 @@ app.controller('goodsController',function($scope,goodsService){
                         $scope.longs.splice(index,1);
                     }
             }
-            //删除
+            //ɾ��
             $scope.del=function(){
-                    goodsService.del($scope.longs).success(function(response){
+                if(!confirm('确定删除？')){
+                    return false;
+                }
+                    goodsService.delgoods($scope.longs).success(function(response){
                             alert(response.success);
+                            $scope.reloadList();
                     });
             }
+
         });

@@ -1,6 +1,8 @@
 package entryPingYouGou;
 
-public class ErrorPingYouGou {
+import java.io.Serializable;
+
+public class ErrorPingYouGou implements Serializable{
 
 	
 		private boolean judge;

@@ -8,7 +8,6 @@
   <artifactId>pingyougou-dao</artifactId>
   
   <dependencies>
-
   	<dependency>
 	    <groupId>com.github.pagehelper</groupId>
 	    <artifactId>pagehelper</artifactId>	   
@@ -36,7 +35,10 @@
 		<groupId>com.alibaba</groupId>
 		<artifactId>druid</artifactId>		
 	</dependency>
-
+		<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+			</dependency>
 	<dependency>
 		<groupId>cn.pingyougou</groupId>
 		<artifactId>pingyougou-pojo</artifactId>

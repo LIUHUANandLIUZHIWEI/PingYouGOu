@@ -12,6 +12,15 @@ public class GoodsShopInsert implements Serializable {
 	private TbGoodsDesc goodsDesc;
 	private List<TbItem> items;
 	
+	public GoodsShopInsert() {
+		super();
+	}
+	public GoodsShopInsert(TbGoods goodsEdit, TbGoodsDesc goodsDesc, List<TbItem> items) {
+		super();
+		this.goodsEdit = goodsEdit;
+		this.goodsDesc = goodsDesc;
+		this.items = items;
+	}
 	public List<TbItem> getItems() {
 		return items;
 	}

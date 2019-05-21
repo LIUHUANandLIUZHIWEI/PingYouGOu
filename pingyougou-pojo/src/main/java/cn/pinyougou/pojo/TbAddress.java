@@ -9,7 +9,7 @@ public class TbAddress implements Serializable{
     private String userId;
 
     private String provinceId;
-
+ 
     private String cityId;
 
     private String townId;

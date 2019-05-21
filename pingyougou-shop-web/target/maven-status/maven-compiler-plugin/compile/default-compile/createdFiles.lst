@@ -1,0 +1,4 @@
+cn\pingyougou\shop\controller\userNameController.class
+cn\pingyougou\shop\service\SecurityService.class
+cn\pingyougou\shop\controller\FastDfscController.class
+cn\pingyougou\shop\controller\goodsController.class

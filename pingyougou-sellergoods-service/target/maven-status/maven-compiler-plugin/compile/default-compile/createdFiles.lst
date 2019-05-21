@@ -1,0 +1,6 @@
+cn\pingyougou\sellergoods\service\Imp\typeTemplateServiceImp.class
+cn\pingyougou\sellergoods\service\Imp\SpecificationServiceImp.class
+cn\pingyougou\sellergoods\service\Imp\GoodsServiceImp.class
+cn\pingyougou\sellergoods\service\Imp\itemCatServiceImp.class
+cn\pingyougou\sellergoods\service\Imp\SellerServiceImp.class
+cn\pingyougou\sellergoods\service\Imp\BranServiceImp.class

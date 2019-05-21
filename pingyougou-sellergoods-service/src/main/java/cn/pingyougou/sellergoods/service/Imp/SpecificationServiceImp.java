@@ -1,6 +1,7 @@
 package cn.pingyougou.sellergoods.service.Imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
@@ -16,6 +17,7 @@ import entryPingYouGou.PageToel;
 import cn.pinyougou.pojo.TbSpecificationOption;
 import cn.pinyougou.pojo.TbSpecificationOptionExample;
 @Service
+@Transactional
 public class SpecificationServiceImp implements SpecificationService {
 
 		@Autowired

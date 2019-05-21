@@ -95,6 +95,17 @@
 		<artifactId>pingyougou-dao</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
+
+	<dependency>
+		<groupId>cn.pingyougou</groupId>
+		<artifactId>pingyougou.content.interface</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>cn.pingyougou</groupId>
+		<artifactId>pingyougou-common</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
    </dependencies>
   
   

@@ -29,5 +29,9 @@ app.service('goodsEditService',function($http){
             this.spectificationOption=function(typeStr){
                 return $http.get('../goodsEditAndDesc/spectificatonOption.do?typeStr='+typeStr);
             }
+            //修改数据 根据ID查询
+            this.updateSelectList=function(id){
+                return $http.post('../goodsEditAndDesc/updateSelectList.do?id='+id);        
+            }
 	
 })

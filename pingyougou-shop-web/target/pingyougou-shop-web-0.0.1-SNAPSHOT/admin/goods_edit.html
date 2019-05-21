@@ -29,7 +29,7 @@
     
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pingyougou" ng-controller="goodsEditController" ng-init="initEntry('0')">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pingyougou" ng-controller="goodsEditController" ng-init="updateIf()">
 
             <!-- 正文区域 -->
             <section class="content">
@@ -165,7 +165,7 @@
                             <!--扩展属性-->
                             <div class="tab-pane" id="customAttribute">
                                 <div class="row data-type">                                
-	                                <div ng-repeat="customAttribute in goodsEditAndDesc.goodsDesc.customAttributeItems">
+	                                <div ng-repeat="customAttribute in goodsEditAndDesc.goodsDesc.customAttributeItems track by $id($index)">
 		                                <div class="col-md-2 title">{{customAttribute.text}}</div>
 				                        <div class="col-md-10 data">
 				                              <input class="form-control" ng-model="customAttribute.value" placeholder="{{customAttribute.text}}">	            	 
@@ -180,27 +180,27 @@
                             	<div class="row data-type">
 	                            	<div class="col-md-2 title">是否启用规格</div>
 			                        <div class="col-md-10 data">
-			                        	<input type="checkbox" ng-model="goodsEditAndDesc.goodsEdit.IsEnableSpec" ng-true-value="1" ng-false-value="0">			                           
+			                        	<input type="checkbox" ng-model="goodsEditAndDesc.goodsEdit.IsEnableSpec" ng-checked="checkedOne()" ng-true-value="1" ng-false-value="0">			                           
 			                        </div>
                             	</div>
                             	<p>
                             	<div ng-if="goodsEditAndDesc.goodsEdit.IsEnableSpec != 0">
                             	
-	                                <div class="row data-type" ng-repeat="enitItem in goodsItem">
+	                                <div class="row data-type" ng-repeat="enitItem in goodsItem track by $id($index)">
 		                                <div>
 			                                <div class="col-md-2 title">{{enitItem.text}}</div>
 					                        <div class="col-md-10 data">
 					                            <span ng-repeat=" entis in enitItem.option">
-					                            	<input  type="checkbox" ng-click="forItem(enitItem.text,entis.optionName,$event)">{{entis.optionName}}					                            				                            	
+					                            	<input  type="checkbox" ng-checked="checkedTwo(enitItem.text,entis.optionName)" ng-click="forItem(enitItem.text,entis.optionName,$event)">{{entis.optionName}}					                            				                            	
 					                            </span>  
                                             </div>
                                         </div>                                               
-	                                </div>
+                                    </div>
 	                                <div class="row data-type">
 	                                	 <table class="table table-bordered table-striped table-hover dataTable">
 						                    <thead>
 						                        <tr>					                          
-												    <th class="sorting" ng-repeat="item in TextOptionName">{{item.attributeName}}</th>
+												    <th class="sorting" ng-repeat="item in TextOptionName track by $id($index)">{{item.attributeName}}</th>
 													
 												    <th class="sorting">价格</th>
 												    <th class="sorting">库存</th>
@@ -209,8 +209,8 @@
 											    </tr>
 								            </thead>
 						                    <tbody>
-						                      <tr ng-repeat="pojo in itemList">					                           
-										            <td ng-repeat="texts in TextOptionName">
+						                      <tr ng-repeat="pojo in itemList track by $id($index)">					                           
+										            <td ng-repeat="texts in TextOptionName track by $id($index)">
                                                         {{pojo.spec[texts.attributeName]}}
 										            </td>
 													
@@ -244,7 +244,7 @@
                    </div>
                   <div class="btn-toolbar list-toolbar">
 				      <button class="btn btn-primary"  ng-click="shopGoodsOne()"><i class="fa fa-save"></i>保存</button>
-				      <button class="btn btn-default" >返回列表</button>
+				     <a href="goods.html"><button class="btn btn-default" >返回列表</button></a> 
 				  </div>
 			
             </section>

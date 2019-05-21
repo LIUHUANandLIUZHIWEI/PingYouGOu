@@ -2,10 +2,12 @@ package cn.pinyougou.mapper;
 
 import cn.pinyougou.pojo.TbItem;
 import cn.pinyougou.pojo.TbItemExample;
+
+import java.io.Serializable;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface TbItemMapper {
+public interface TbItemMapper extends Serializable{
     int countByExample(TbItemExample example);
 
     int deleteByExample(TbItemExample example);
