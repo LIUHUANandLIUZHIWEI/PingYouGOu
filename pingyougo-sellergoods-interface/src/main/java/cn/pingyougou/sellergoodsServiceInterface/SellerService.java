@@ -1,6 +1,4 @@
 package cn.pingyougou.sellergoodsServiceInterface;
-
-import BeanPingYouGou.PingYouGouPoJo;
 import cn.pinyougou.pojo.TbSeller;
 import entryPingYouGou.PageToel;
 

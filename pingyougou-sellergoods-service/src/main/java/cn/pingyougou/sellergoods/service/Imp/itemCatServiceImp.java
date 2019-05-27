@@ -1,7 +1,10 @@
 package cn.pingyougou.sellergoods.service.Imp;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
@@ -24,7 +27,18 @@ public class itemCatServiceImp implements itemCatService{
 		TbItemCatExample example=new TbItemCatExample();
 		example.createCriteria().andParentIdEqualTo(id);
 		Page<TbItemCat> page=(Page<TbItemCat>) tbItemCatMapper.selectByExample(example);
+		redis();
 		return new PageToel<TbItemCat>(page.getTotal(),page.getResult());
+	}
+	@Autowired
+	private RedisTemplate redisTemplate;
+	//数据缓存
+	private void redis() {
+		List<TbItemCat> list = tbItemCatMapper.selectByExample(null);
+		for(TbItemCat itemcat:list) {
+			redisTemplate.boundHashOps("item").put(itemcat.getName(), itemcat.getTypeId());
+		}
+		System.out.println("缓冲分类");
 	}
 	@Override
 	public TbItemCat selectOne(long id) {
@@ -47,5 +61,7 @@ public class itemCatServiceImp implements itemCatService{
 		}
 		return 0;
 	}
+	
+	
 
 }

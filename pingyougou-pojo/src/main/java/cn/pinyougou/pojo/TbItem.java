@@ -33,7 +33,7 @@ public class TbItem implements Serializable{
     @Dynamic
     @Field("item_spec_*")
     private Map<String,String> map;
-    
+    @Field("item_updateTime")
 	private Date updateTime;
 
     private String itemSn;

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import cn.pinyougou.pojo.TbGoods;
 import cn.pinyougou.pojo.TbItemCat;
-import cn.pinyougou.pojo.TbSpecificationOption;
 import cn.pinyougou.pojo.TbTypeTemplate;
 import entryPingYouGou.GoodsShopInsert;
 import entryPingYouGou.PageToel;
@@ -33,5 +32,6 @@ public interface GoodsService {
 	void updateGoodsShop(GoodsShopInsert goodsShopInsert) throws Exception;
 
 	void updateStatusList(Long[] longs, long status);
-
+	//商品 搜索索引
+	List solrluse(Long[] longs);
 }

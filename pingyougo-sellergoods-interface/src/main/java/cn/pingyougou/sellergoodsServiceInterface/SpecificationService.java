@@ -1,7 +1,4 @@
 package cn.pingyougou.sellergoodsServiceInterface;
-
-import java.util.List;
-
 import PingYouGouPojo.SpecificationPojo;
 import cn.pinyougou.pojo.TbSpecification;
 import entryPingYouGou.PageToel;
@@ -15,7 +12,7 @@ public interface SpecificationService {
 	SpecificationPojo updateInsert(long id);
 
 	void updateSp(SpecificationPojo specificationPojo);
-
+ 
 	int deleteSp(long[] ids);
 
 }

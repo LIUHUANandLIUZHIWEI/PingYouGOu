@@ -25,11 +25,11 @@ public class ContentCategoryServiceImp implements ContentCategoryService{
 	@Override
 	public void contentCatSave(TbContentCategory tbContentCategory) {
 			if(tbContentCategory.getId()==null) {
+				
 				tbContentCategoryMapper.insert(tbContentCategory);
 			}else {
 				tbContentCategoryMapper.updateByPrimaryKey(tbContentCategory);
 			}
-			
 	}
 
 	@Override

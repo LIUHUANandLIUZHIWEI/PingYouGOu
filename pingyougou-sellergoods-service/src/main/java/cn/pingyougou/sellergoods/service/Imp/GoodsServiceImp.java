@@ -1,18 +1,16 @@
 package cn.pingyougou.sellergoods.service.Imp;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.alibaba.fastjson.JSON;
-
 import cn.pingyougou.sellergoodsServiceInterface.GoodsService;
 import cn.pinyougou.mapper.TbBrandMapper;
 import cn.pinyougou.mapper.TbGoodsDescMapper;
@@ -39,6 +37,7 @@ import entryPingYouGou.PageToel;
 @Service
 @Transactional
 public class GoodsServiceImp implements GoodsService{
+	
 	@Autowired
 	private TbGoodsDescMapper tbGoodsDescMapper;
 	@Autowired
@@ -179,6 +178,9 @@ public class GoodsServiceImp implements GoodsService{
 			 if(goods.getAuditStatus()!=null&&goods.getAuditStatus().length()>0) {
 				 crit.andAuditStatusEqualTo(goods.getAuditStatus());
 			 }
+			 if(goods.getSellerId()==null) {
+				 crit.andAuditStatusEqualTo("0");
+					 }
 			 if(goods.getSellerId()!=null&&goods.getSellerId().length()>0) {
 				 crit.andSellerIdEqualTo(goods.getSellerId());
 			 }
@@ -227,5 +229,15 @@ public class GoodsServiceImp implements GoodsService{
 		}
 		
 	}
+	//数据索引 
+	@Override
+	public List solrluse(Long[] longs) {
+			TbItemExample example=new TbItemExample();
+			example.createCriteria().andGoodsIdIn(Arrays.asList(longs));
+			List<TbItem> list = tbItemMapper.selectByExample(example);
+			return  list;
+	}
+	
+	
 
 }

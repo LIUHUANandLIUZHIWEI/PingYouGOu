@@ -56,7 +56,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 	
 	<!-- 引用dubbo 服务 -->
 	<dubbo:application name="pinyougou-shop-web" />
-	<dubbo:registry address="zookeeper://192.168.25.134:2181"/>	
+	<dubbo:registry address="zookeeper://192.168.25.135:2181"/>	
 	<dubbo:reference id="sellerService" interface=" cn.pingyougou.sellergoodsServiceInterface.SellerService"></dubbo:reference>
 	<beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>	                  
 </beans:beans>

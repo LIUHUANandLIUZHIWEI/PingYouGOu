@@ -29,7 +29,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
   		        <param-name>contextConfigLocation</param-name>
-  		        <param-value>classpath:spring/springmvc.xml</param-value>
+  		        <param-value>classpath:spring/spring*.xml</param-value>
   	</init-param>
 	</servlet>
 
@@ -42,7 +42,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/Springsecurity.xml</param-value>
+        <param-value>classpath:spring/springsecurity.xml</param-value>
     </context-param>
     
     <filter> 

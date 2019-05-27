@@ -14,7 +14,7 @@ public interface ContentService {
 	PageToel<TbContent> contentList(int pageNum, int pageSize);
 
 	void contentDel(Long[] longs);
-
+	
 	void contentSave(TbContent tbContentCategory);
 
 	List<TbContentCategory> selectContenCat();

@@ -1,12 +1,6 @@
 package cn.pingyougou.sellergoodsServiceInterface;
-
-import java.util.List;
-
 import cn.pinyougou.pojo.TbBrand;
 import entryPingYouGou.PageToel;
-
-
-
 public interface BranService {
 	PageToel<TbBrand> selectBran(int pageNum,int pageSize,TbBrand tb);
 	

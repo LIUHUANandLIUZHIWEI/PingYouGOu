@@ -90,6 +90,11 @@
 		<artifactId>pingyougo-sellergoods-interface</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
+	<dependency>
+		<groupId>cn.pingyougou</groupId>
+		<artifactId>pingyougou-common</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
    </dependencies>
   
   

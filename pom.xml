@@ -288,5 +288,11 @@
 		<module>pingyougou.solr-interfase</module>
 		<module>pingyougou.solr.service</module>
 		<module>pingyougou-solr-web</module>
+		<module>pingyougou-freemarck-interface</module>
+		<module>pingyougou-freemarck-services</module>
+		<module>pingyougou-freemarck-web</module>
+		<module>pingyougou-user-interface</module>
+		<module>pingyougou-user-service</module>
+		<module>pingyougou-user-web</module>
 	</modules>
 </project>

@@ -19,6 +19,7 @@ import entryPingYouGou.PageToel;
 @RestController
 @RequestMapping("/content")
 public class ContentController {
+	
 	@Reference
 	private ContentService contentService;
 	@Value("${FASTDFS}")

@@ -12,4 +12,7 @@ public interface typeTemplateService {
 	void insertBranSpType(TbTypeTemplate tbtype);
 	TbTypeTemplate updateTypeTemp(Long id);
 	void deleteTypeTemplate(Long[] ids);
+	
+	//查询所有
+	List<TbTypeTemplate> selectList();
 }

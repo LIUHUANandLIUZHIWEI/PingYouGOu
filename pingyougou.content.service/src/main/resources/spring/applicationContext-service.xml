@@ -14,7 +14,7 @@
     <!-- 服务提供名-->
    <dubbo:application name="pingyougou-content-service"/>
    <!--服务器端口和IP-->
-   <dubbo:registry address="zookeeper://192.168.25.134:2181"/>
+   <dubbo:registry address="zookeeper://192.168.25.135:2181"/>
    <!--扫描的包名-->
    <dubbo:annotation package="pingyougou.content.service.Imp" />
 </beans>

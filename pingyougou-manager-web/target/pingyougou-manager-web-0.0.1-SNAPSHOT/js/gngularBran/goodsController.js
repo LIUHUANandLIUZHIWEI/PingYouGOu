@@ -31,12 +31,10 @@ app.controller('goodsController',function($scope,goodsService){
                                         }
                                     })
                                 }
-                                $scope.stat=['未审核','已审核','审核未通过','关闭'];
+                                $scope.stat=['未审核','审核通过','审核未通过','关闭'];
 
                                 //修改状态 
                                     $scope.goodsStatus=function(ids){
-                                         alert(JSON.stringify($scope.lons))
-                                         alert(ids)
                                          goodsService.goodsStatus($scope.lons,ids).success(function(response){
                                             alert(response.success);
                                             $scope.reloadList();
@@ -46,7 +44,6 @@ app.controller('goodsController',function($scope,goodsService){
                                     $scope.lons=[];
                                 //删除
                                 $scope.goodsDel=function(){
-                                    alert(JSON.stringify($scope.lons))
                                     goodsService.goodsDel($scope.lons).success(function(response){
                                             alert(response.success);
                                             $scope.reloadList();  

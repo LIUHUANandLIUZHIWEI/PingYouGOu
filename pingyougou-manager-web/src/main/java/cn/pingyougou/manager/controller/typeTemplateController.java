@@ -21,6 +21,7 @@ public class typeTemplateController {
 //查询所有模
 	@RequestMapping("/selectList.do")
 	public PageToel<TbTypeTemplate> selectList(int pageTole,int pageSize,@RequestBody TbTypeTemplate tbTypeTemplate){
+		
 		PageToel<TbTypeTemplate> page=typeTemplateService.selectLists(pageTole,pageSize,tbTypeTemplate);
 		
 		return page;
@@ -35,6 +36,7 @@ public class typeTemplateController {
 	public ErrorPingYouGou insertBranSpType(@RequestBody TbTypeTemplate tbTypetemalte) {
 		try {
 			typeTemplateService.insertBranSpType(tbTypetemalte);
+			
 			return new ErrorPingYouGou(true,"添加成功");
 		}catch (Exception e) {
 			e.printStackTrace();

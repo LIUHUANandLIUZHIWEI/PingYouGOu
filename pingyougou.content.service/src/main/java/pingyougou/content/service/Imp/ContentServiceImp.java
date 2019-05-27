@@ -27,7 +27,7 @@ public class ContentServiceImp implements ContentService{
 	@Autowired
 	private TbContentMapper tbContentMapper;
 	@Autowired
-	private RedisTemplate template;
+	private RedisTemplate reduisTemplate;
 	@Override
 	public TbContent contentOne(long id) {
 		return tbContentMapper.selectByPrimaryKey(id);
@@ -58,13 +58,13 @@ public class ContentServiceImp implements ContentService{
 			TbContent con=tbContentMapper.selectByPrimaryKey(tb.getId());
 			System.out.println(con.getId().longValue()==tb.getId().longValue());
 			if(con.getId().longValue()==tb.getId().longValue()) {
-				template.boundHashOps("conten").delete(con.getCategoryId());
+				reduisTemplate.boundHashOps("conten").delete(con.getCategoryId());
 			}
-			template.boundHashOps("content").delete(tb.getCategoryId());
+			reduisTemplate.boundHashOps("content").delete(tb.getCategoryId());
 			tbContentMapper.updateByPrimaryKey(tb);
 		}else {
 			if(tb.getCategoryId()!=null) {
-				template.boundHashOps("content").delete(tb.getCategoryId());
+				reduisTemplate.boundHashOps("content").delete(tb.getCategoryId());
 				System.out.println("删除缓存");
 				tbContentMapper.insert(tb);
 			}else {
@@ -87,16 +87,16 @@ public class ContentServiceImp implements ContentService{
 	@Override
 	public List<TbContent> contenCatAll(Long id) {
 		
-		List<TbContent> list=(List<TbContent>) template.boundHashOps("content").get(id);
+		List<TbContent> list=(List<TbContent>) reduisTemplate.boundHashOps("content").get(id);
 		
-		if(list==null) {
+		if(list==null&&list.size()>0) {
 			TbContentExample example=new TbContentExample();
 			Criteria crie=example.createCriteria();
 			crie.andCategoryIdEqualTo(id);
 			crie.andStatusEqualTo("1");
 			example.setOrderByClause("sort_order");
 			list=tbContentMapper.selectByExample(example);
-			template.boundHashOps("content").put(id,list);
+			reduisTemplate.boundHashOps("content").put(id,list);
 			System.out.println("查询数据库");
 		}else {
 			System.out.println("查询缓存");

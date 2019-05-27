@@ -3,6 +3,14 @@ package cn.pingyougou.shop.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,11 +73,34 @@ public class goodsController{
 		return goodsService.selectGoodsList(pageTole,pageSize,goods);
 	}
 	
+	@Autowired
+	private JmsTemplate jmsTemplate;
+	//删除 静态网页
+	@Autowired
+	private Destination topicFreemarkDestinationInsertDelete;
+	//删除 索引库
+	@Autowired
+	private Destination queueSorlDestinationDelete;
 	//删除Goods表内容
 	@RequestMapping("/deleteGoodsAll.do")
-	public ErrorPingYouGou delGoods(Long[] longs) {
+	public ErrorPingYouGou delGoods(final Long[] longs) {
 		try {
 			goodsService.delgoodsList(longs);
+			//通过activeMQ 删除 静态网页
+			jmsTemplate.send(topicFreemarkDestinationInsertDelete,new MessageCreator() {
+				@Override
+				public Message createMessage(Session session) throws JMSException {
+					return session.createObjectMessage(longs);
+				}
+			});
+			
+			//通过activeMQ 中间件 删除 索引库
+			jmsTemplate.send(queueSorlDestinationDelete, new MessageCreator() {
+				@Override
+				public Message createMessage(Session session) throws JMSException {
+					return session.createObjectMessage(longs);
+				}
+			});
 			return new ErrorPingYouGou(true, "删除成功");
 		}catch (Exception e) {
 			return new ErrorPingYouGou(false, "删除失败");

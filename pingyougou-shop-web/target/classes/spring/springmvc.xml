@@ -27,7 +27,7 @@
     	<!-- 配置 本服务名 -->
     	<dubbo:application name="pinyougou-shop-web" />
     	<!-- 配置dubbo服务IP -->
-    	<dubbo:registry address="zookeeper://192.168.25.134:2181"/>	
+    	<dubbo:registry address="zookeeper://192.168.25.135:2181"/>	
     	<!-- 配置是实现类的包 -->
     	<dubbo:annotation package="cn.pingyougou.shop.controller"></dubbo:annotation>
 
